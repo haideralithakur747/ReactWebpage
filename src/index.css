@@ -44,7 +44,11 @@ ul{
 .news-article{
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 302px;
+
+  border: 1px solid #ccc;
+    border-radius: 20px;
+  
 
 }
 .news-container{
@@ -52,5 +56,6 @@ ul{
   gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
+  ;
 
 }
