@@ -41,3 +41,16 @@ ul{
   margin-right: 20px;
   
 }
+.news-article{
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+
+}
+.news-container{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
