@@ -1,0 +1,43 @@
+.Navbar {
+  background-color: #333;
+  color: white;
+  padding-bottom: 15px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    height: 25px;
+    padding-top: 35px;
+}
+
+ul{
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    text-decoration: none;
+    color: white;
+    
+    /* margin-left: 390px; */
+  
+   
+}
+.logo{
+    background-color: white; 
+    color: black;
+    margin-bottom:15px;
+   
+     padding: 5px;
+     padding-left: 20px;
+        padding-right: 20px;
+      font : 20px;
+      font-weight: 600;
+       border-radius: 1px;
+       width: 110px;
+       text-decoration: none;
+    margin-right: -10px;
+}
+.links ul li .link {
+  text-decoration: none;
+  color: white;
+  margin-right: 20px;
+  
+}
