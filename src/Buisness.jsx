@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export default function Business() {
   const [articles, setArticles] = useState([]);
   const [infoMessage, setInfoMessage] = useState("");
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchNews();
   }, []);
@@ -29,8 +29,15 @@ export default function Business() {
       console.error("Error fetching news:", error);
       setArticles([]);
     }
+    
+      finally {
+      setLoading(false);
+    }
   }
 
+     if (loading) {
+    return <h2 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h2>;
+  }
   return (
     <div className="news-container">
       <h1>News API Example</h1>

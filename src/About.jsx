@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 export default function About() {
   const [articles, setArticles] = useState([]);
   const [infoMessage, setInfoMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(null);
 
   useEffect(() => {
     fetchNews();
@@ -15,7 +17,6 @@ export default function About() {
       let response = await fetch(url);
       response = await response.json();
 
-      // Extract information
       if (response.information?.realTimeArticles?.message) {
         setInfoMessage(response.information.realTimeArticles.message);
       }
@@ -28,41 +29,83 @@ export default function About() {
     } catch (error) {
       console.error("Error fetching news:", error);
       setArticles([]);
+    } finally {
+      setLoading(false);
     }
   }
 
+  const toggleAccordion = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  if (loading) {
+    return <h2 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h2>;
+  }
+
   return (
-    <div className="news-container">
-      <h1>News API Example</h1>
+    <div style={{ maxWidth: "900px", margin: "auto", padding: "20px" }}>
+      <h1 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "20px" }}>
+        About Us
+      </h1>
 
-      {/* API Info Message */}
-      {infoMessage && <p style={{ color: "red" }}>{infoMessage}</p>}
+      {infoMessage && (
+        <p style={{ textAlign: "center", color: "red" }}>{infoMessage}</p>
+      )}
 
-      {/* News Articles */}
-      <div className="news-container">
-      {articles.length > 0 ? (
-        articles.map((news) => (
-          <div className="news-article" key={news.url} style={{ marginBottom: "15px" }}>
-            
-            <img
-              src={news.image}
-              alt={news.title}
-              style={{ width: "300px", borderRadius: "8px" }}
-            />
-            <h3>{news.title}</h3>
-            <p>{news.description}</p>
-            <a href={news.url} target="_blank" rel="noreferrer">
-              Read more
-            </a>
-            <p>
-              <b>Source:</b> {news.source.name} ({news.source.country})
-            </p>
+      {articles.length === 0 ? (
+        <p style={{ textAlign: "center" }}>No articles found.</p>
+      ) : (
+        articles.map((article, index) => (
+          <div
+            key={index}
+            style={{
+              border: "1px solid #ddd",
+              borderRadius: "6px",
+              marginBottom: "10px",
+              overflow: "hidden",
+            }}
+          >
+            <button
+              onClick={() => toggleAccordion(index)}
+              style={{
+                width: "100%",
+                textAlign: "left",
+                padding: "15px",
+                fontSize: "1.1rem",
+                fontWeight: "500",
+                cursor: "pointer",
+                background: activeIndex === index ? "#f1f1f1" : "white",
+                border: "none",
+                outline: "none",
+              }}
+            >
+              {article.title}
+              <span style={{ float: "right" }}>
+                {activeIndex === index ? "▲" : "▼"}
+              </span>
+            </button>
+            {activeIndex === index && (
+              <div
+                style={{
+                  padding: "15px",
+                  background: "#fafafa",
+                  borderTop: "1px solid #ddd",
+                }}
+              >
+                <p>{article.description}</p>
+                <a
+                  href={article.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "blue" }}
+                >
+                  Read more
+                </a>
+              </div>
+            )}
           </div>
         ))
-      ) : (
-        <p>No news available.</p>
       )}
-    </div>
     </div>
   );
 }

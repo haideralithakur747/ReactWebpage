@@ -1,68 +1,101 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function ContactUS() {
-  const [articles, setArticles] = useState([]);
-  const [infoMessage, setInfoMessage] = useState("");
+export default function ContactUs() {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [newsletter, setNewsletter] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    fetchNews();
-  }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  async function fetchNews() {
-    try {
-      const url =
-        "https://gnews.io/api/v4/search?q=ContactUs%20Us&lang=en&country=us&max=10&apikey=94f41ceef2d0f6ab540cae87b2864d82";
-      let response = await fetch(url);
-      response = await response.json();
+    // Here you can connect to an API, backend, or service like EmailJS
+    console.log({
+      email,
+      message,
+      newsletter,
+    });
 
-      // Extract information
-      if (response.information?.realTimeArticles?.message) {
-        setInfoMessage(response.information.realTimeArticles.message);
-      }
+    setSubmitted(true);
 
-      if (response.articles) {
-        setArticles(response.articles);
-      } else {
-        setArticles([]);
-      }
-    } catch (error) {
-      console.error("Error fetching news:", error);
-      setArticles([]);
-    }
-  }
+    // reset form
+    setEmail("");
+    setMessage("");
+    setNewsletter(false);
+  };
 
   return (
-    <div className="news-container">
-      <h1>News API Example</h1>
+    <div style={{ maxWidth: "600px", margin: "auto", padding: "20px" }}>
+      <h1 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "20px" }}>
+        Contact Us
+      </h1>
 
-      {/* API Info Message */}
-      {infoMessage && <p style={{ color: "red" }}>{infoMessage}</p>}
-
-      {/* News Articles */}
-      <div className="news-container">
-      {articles.length > 0 ? (
-        articles.map((news) => (
-          <div className="news-article" key={news.url} style={{ marginBottom: "15px" }}>
-            
-            <img
-              src={news.image}
-              alt={news.title}
-              style={{ width: "300px", borderRadius: "8px" }}
-            />
-            <h3>{news.title}</h3>
-            <p>{news.description}</p>
-            <a href={news.url} target="_blank" rel="noreferrer">
-              Read more
-            </a>
-            <p>
-              <b>Source:</b> {news.source.name} ({news.source.country})
-            </p>
-          </div>
-        ))
-      ) : (
-        <p>No news available.</p>
+      {submitted && (
+        <p style={{ color: "green", marginBottom: "15px" }}>
+          ✅ Thank you for contacting us! We’ll get back to you soon.
+        </p>
       )}
-    </div>
+
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: "15px" }}>
+          <label>Email address</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={{
+              width: "100%",
+              padding: "10px",
+              marginTop: "5px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+            }}
+          />
+        </div>
+
+        <div style={{ marginBottom: "15px" }}>
+          <label>Your Message</label>
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            required
+            rows="4"
+            style={{
+              width: "100%",
+              padding: "10px",
+              marginTop: "5px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+            }}
+          ></textarea>
+        </div>
+
+        <div style={{ marginBottom: "15px" }}>
+          <label>
+            <input
+              type="checkbox"
+              checked={newsletter}
+              onChange={(e) => setNewsletter(e.target.checked)}
+            />{" "}
+            Subscribe to Newsletter
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          style={{
+            background: "#007BFF",
+            color: "white",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Send
+        </button>
+      </form>
     </div>
   );
 }

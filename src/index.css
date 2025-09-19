@@ -1,61 +1,95 @@
 .Navbar {
   background-color: #333;
   color: white;
-  padding-bottom: 15px;
-    align-items: center;
-    text-align: center;
-    display: flex;
-    height: 25px;
-    padding-top: 35px;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* allows wrapping on small screens */
 }
 
-ul{
-    display: flex;
-    list-style: none;
-    gap: 20px;
-    text-decoration: none;
-    color: white;
-    
-    /* margin-left: 390px; */
-  
-   
+ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
 }
-.logo{
-    background-color: white; 
-    color: black;
-    margin-bottom:15px;
-   
-     padding: 5px;
-     padding-left: 20px;
-        padding-right: 20px;
-      font : 20px;
-      font-weight: 600;
-       border-radius: 1px;
-       width: 110px;
-       text-decoration: none;
-    margin-right: -10px;
+
+.logo {
+  background-color: white;
+  color: black;
+  padding: 5px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  flex-shrink: 0; /* keeps logo readable */
 }
+
 .links ul li .link {
   text-decoration: none;
   color: white;
   margin-right: 20px;
-  
 }
-.news-article{
+
+.news-article {
   display: flex;
   flex-direction: column;
-  width: 302px;
-
+  flex: 1 1 280px; /* grows/shrinks with screen */
+  max-width: 320px;
   border: 1px solid #ccc;
-    border-radius: 20px;
-  
-
+  border-radius: 20px;
+  padding: 10px;
 }
-.news-container{
+
+.news-container {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
-  ;
+}
+/* Hide button on desktop */
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
 
+/* Nav links default (desktop) */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .menu-btn {
+    display: block; /* show ☰ button */
+  }
+
+  .nav-links {
+    display: none; /* hide links by default */
+    flex-direction: column;
+    background: #444;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 10px 0;
+  }
+
+  .nav-links.open {
+    display: flex; /* show when state isOpen = true */
+  }
+
+  .nav-links li {
+    text-align: center;
+    padding: 10px 0;
+  }
 }
