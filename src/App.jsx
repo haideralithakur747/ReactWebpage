@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import About from "./About";
 import ContactUS from "./ContactUS";
 import Nation from "./Nation";
-import Science from "./Science";
+import Science from "./science";
 import World from "./World";
 import Home from "./Home";
 import Technology from "./Technology";

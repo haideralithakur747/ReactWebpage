@@ -1,33 +1,4 @@
-// import { useEffect, useState } from "react";
 
-// export default function Home(){
-// const [homeNews, setHomeNews] = useState([]);
-// useEffect(()=>{
-//   getHomePage();
-// },[])
-
-
-//   async function getHomePage(){
-//     const url ="https://gnews.io/api/v4/search?q=Home%20Us&lang=en&country=us&max=10&apikey=94f41ceef2d0f6ab540cae87b2864d82";
-//     let response = await fetch(url);
-//       response = await response.json();
-//       // console.log(response);
-//       setHomeNews(response.articles);
-//   }
-//   console.log(homeNews);
-//   return(
-//     <div>
-//       <h1>Hello World!this is Home.jsx</h1>
-//       {
-//         homeNews.map((news)=>(
-//           <h1 key={news.id}>{news.title}</h1>
-//         ))
-//       }
-//     </div>
-//   )
-
-
-// }
 import { useEffect, useState } from "react";
 
 export default function Home() {
